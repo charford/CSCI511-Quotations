@@ -56,7 +56,6 @@ public class ShowQuotes extends JPanel {
         refreshButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        //jLabel1 = new javax.swing.JLabel();
 
         FormListener formListener = new FormListener();
 
@@ -125,10 +124,6 @@ public class ShowQuotes extends JPanel {
 
         deleteButton.addActionListener(formListener);
 
-       // if(Quotations.logged_in)
-        //jLabel1.setText("Logged In");
-        //else jLabel1.setText("");
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,7 +157,6 @@ public class ShowQuotes extends JPanel {
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(213, Short.MAX_VALUE)
-                //.add(jLabel1)
                 .add(155, 155, 155))
         );
 
@@ -172,7 +166,6 @@ public class ShowQuotes extends JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                //.add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(masterScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 136, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

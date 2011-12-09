@@ -10,6 +10,11 @@
  */
 package QuotationsPackage;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
 /**
  *
  * @author c_harford
@@ -32,12 +37,12 @@ public class NewUser extends javax.swing.JFrame {
 
         firstNameEntered = new javax.swing.JTextField();
         lastNameEntered = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        firstNameLabel = new javax.swing.JLabel();
+        lastNameLable = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
         signupButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         passwordEntered = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -54,11 +59,11 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("First Name:");
+        firstNameLabel.setText("First Name:");
 
-        jLabel2.setText("Last Name:");
+        lastNameLable.setText("Last Name:");
 
-        jLabel3.setText("Password:");
+        passwordLabel.setText("Password:");
 
         signupButton.setText("Sign up");
         signupButton.addActionListener(new java.awt.event.ActionListener() {
@@ -74,8 +79,8 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 36));
-        jLabel4.setText("Sign up");
+        titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
+        titleLabel.setText("Sign up");
 
         passwordEntered.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,15 +102,15 @@ public class NewUser extends javax.swing.JFrame {
                             .add(signupButton))
                         .add(layout.createSequentialGroup()
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jLabel3)
-                                .add(jLabel1)
-                                .add(jLabel2))
+                                .add(passwordLabel)
+                                .add(firstNameLabel)
+                                .add(lastNameLable))
                             .add(18, 18, 18)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                 .add(passwordEntered, 0, 0, Short.MAX_VALUE)
                                 .add(org.jdesktop.layout.GroupLayout.TRAILING, firstNameEntered, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                                 .add(org.jdesktop.layout.GroupLayout.TRAILING, lastNameEntered))))
-                    .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(titleLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -115,19 +120,19 @@ public class NewUser extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 49, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(titleLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 49, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(firstNameEntered, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel1))
+                    .add(firstNameLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lastNameEntered, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2))
+                    .add(lastNameLable))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(passwordEntered, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel3))
+                    .add(passwordLabel))
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(signupButton)
@@ -148,12 +153,38 @@ private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_cancelButtonActionPerformed
 
 private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
+
+    Connection conn = null;
     String firstName = firstNameEntered.getText();
     String lastName = lastNameEntered.getText();
     String password = passwordEntered.getText();
-    System.out.println(firstName);
-    System.out.println(lastName);
-    System.out.println(password);
+    try {
+ 
+        int count = 0;
+        String dbUser = "csci511";
+        String dbPass = "csci511";
+        String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
+        
+        //check if user and password combo exist
+        PreparedStatement ps;
+        ResultSet rs = null;
+        ps = (PreparedStatement) conn.prepareStatement("INSERT INTO Users (FirstName,LastName,UserPassword) VALUES (?,?,?)");
+        ps.setString(1,firstName);
+        ps.setString(2,lastName);
+        ps.setString(3,password);
+        count = ps.executeUpdate();
+        ps.close();
+      
+        if(count>0) {
+            Quotations.logged_in = true; 
+            Quotations.openMainMenu();
+            System.out.println("Account created!");
+            this.dispose();
+        }
+    }
+    catch(Exception e) {}
 }//GEN-LAST:event_signupButtonActionPerformed
 
 private void firstNameEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameEnteredActionPerformed
@@ -167,12 +198,12 @@ private void passwordEnteredActionPerformed(java.awt.event.ActionEvent evt) {//G
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField firstNameEntered;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField lastNameEntered;
+    private javax.swing.JLabel lastNameLable;
     private javax.swing.JPasswordField passwordEntered;
+    private javax.swing.JLabel passwordLabel;
     private javax.swing.JButton signupButton;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

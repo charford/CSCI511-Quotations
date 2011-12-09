@@ -36,10 +36,10 @@ public class MainMenu extends javax.swing.JFrame {
 
         showQuotesButton = new javax.swing.JButton();
         loginButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        showQuotesLabel = new javax.swing.JLabel();
+        loginLabel = new javax.swing.JLabel();
+        signupButton = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,21 +59,21 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Show quotes by clicking the button below.");
+        showQuotesLabel.setText("Show quotes by clicking the button below.");
 
-        if(Quotations.logged_in) jLabel2.setText("You are logged in.");
+        if(Quotations.logged_in) loginLabel.setText("You are logged in.");
         else
-        jLabel2.setText("You must be logged in to save changes.");
+        loginLabel.setText("You must be logged in to save changes.");
 
-        jButton1.setText("Sign up");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        signupButton.setText("Sign up");
+        signupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                signupButtonActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 36));
-        jLabel3.setText("Quotations");
+        titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
+        titleLabel.setText("Quotations");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,38 +83,38 @@ public class MainMenu extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jLabel3))
+                        .add(titleLabel))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(loginButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(showQuotesButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(signupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(75, 75, 75)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
-                            .add(jLabel2)
-                            .add(jLabel1))))
+                            .add(loginLabel)
+                            .add(showQuotesLabel))))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(new java.awt.Component[] {jButton1, loginButton, showQuotesButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+        layout.linkSize(new java.awt.Component[] {loginButton, showQuotesButton, signupButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel3)
+                .add(titleLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel1)
+                .add(showQuotesLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel2)
+                .add(loginLabel)
                 .add(22, 22, 22)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(loginButton)
                     .add(showQuotesButton)
-                    .add(jButton1))
+                    .add(signupButton))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -173,7 +173,7 @@ private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     this.dispose();
 }//GEN-LAST:event_loginButtonActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -192,14 +192,14 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         });
         this.dispose();
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_signupButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton loginButton;
+    private javax.swing.JLabel loginLabel;
     private javax.swing.JButton showQuotesButton;
+    private javax.swing.JLabel showQuotesLabel;
+    private javax.swing.JButton signupButton;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
