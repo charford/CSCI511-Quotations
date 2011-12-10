@@ -98,7 +98,7 @@
         <Property name="text" type="java.lang.String" value="You must be logged in to save changes."/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if(Quotations.logged_in) loginLabel.setText(&quot;You are logged in.&quot;);&#xa;else"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if(Quotations.logged_in) loginLabel.setText(&quot;You are logged in as &quot;+ Quotations.currentUserFirst + &quot; &quot; + Quotations.currentUserLast + &quot;.&quot;);&#xa;else"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="signupButton">

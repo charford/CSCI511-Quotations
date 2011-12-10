@@ -61,7 +61,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         showQuotesLabel.setText("Show quotes by clicking the button below.");
 
-        if(Quotations.logged_in) loginLabel.setText("You are logged in.");
+        if(Quotations.logged_in) loginLabel.setText("You are logged in as "+ Quotations.currentUserFirst + " " + Quotations.currentUserLast + ".");
         else
         loginLabel.setText("You must be logged in to save changes.");
 
@@ -72,7 +72,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36));
         titleLabel.setText("Quotations");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -149,6 +149,9 @@ private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
     if(Quotations.logged_in) {
         Quotations.logged_in = false;
+        Quotations.currentUserID = 0;
+        Quotations.currentUserFirst = null;
+        Quotations.currentUserLast = null;
         Quotations.openMainMenu();
         this.dispose();
         return;

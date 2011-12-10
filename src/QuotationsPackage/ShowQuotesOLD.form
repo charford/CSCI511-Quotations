@@ -36,8 +36,6 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
     </Component>
-    <Component class="QuotationsPackage.RowSorterToStringConverter" name="rowSorterToStringConverter1">
-    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -54,11 +52,23 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="masterScrollPane" alignment="1" pref="626" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="masterScrollPane" pref="390" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="newButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="deleteButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="refreshButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="saveButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="quoteLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="authorIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -67,43 +77,29 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="quoteField" alignment="0" pref="551" max="32767" attributes="0"/>
-                          <Component id="authorIDField" alignment="0" pref="551" max="32767" attributes="0"/>
-                          <Component id="userIDField" alignment="0" pref="551" max="32767" attributes="0"/>
-                          <Component id="likesField" alignment="0" pref="551" max="32767" attributes="0"/>
+                          <Component id="quoteField" alignment="0" pref="315" max="32767" attributes="0"/>
+                          <Component id="authorIDField" alignment="0" pref="315" max="32767" attributes="0"/>
+                          <Component id="userIDField" alignment="0" pref="315" max="32767" attributes="0"/>
+                          <Component id="likesField" alignment="0" pref="315" max="32767" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="newButton" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="deleteButton" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="refreshButton" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="saveButton" linkSize="1" min="-2" max="-2" attributes="1"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jTextField1" pref="530" max="32767" attributes="1"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="213" max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="masterScrollPane" min="-2" pref="113" max="-2" attributes="0"/>
+              <Component id="masterScrollPane" min="-2" pref="136" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="quoteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -131,18 +127,7 @@
                   <Component id="deleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="newButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -188,15 +173,19 @@
           <BindingProperties>
             <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${quote}">
+                <BindingParameter name="NAME" value="Quote"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${author}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              <Subbinding sourcePath="${authorID}">
+                <BindingParameter name="NAME" value="Author"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${user}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              <Subbinding sourcePath="${userID}">
+                <BindingParameter name="NAME" value="User"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
               <Subbinding sourcePath="${likes}">
+                <BindingParameter name="NAME" value="Likes"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
             </BindingProperty>
@@ -243,12 +232,6 @@
         </BindingProperty>
         <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="authorIDField" targetPath="enabled" updateStrategy="1" immediately="false"/>
       </BindingProperties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="authorIDFieldActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="authorIDField.setEditable(false);"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="userIDField">
       <BindingProperties>
@@ -257,9 +240,6 @@
         </BindingProperty>
         <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="userIDField" targetPath="enabled" updateStrategy="1" immediately="false"/>
       </BindingProperties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="userIDField.setEditable(false);"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="likesField">
       <BindingProperties>
@@ -320,41 +300,14 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton1"/>
+        <Property name="text" type="java.lang.String" value="Logged In"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jRadioButton3"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-      <BindingProperties>
-        <BindingProperty name="text" source="masterTable" sourcePath="${rowSorter}" target="jTextField1" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-          <Property name="converter" type="org.jdesktop.beansbinding.Converter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-            <ComponentRef name="rowSorterToStringConverter1"/>
-          </Property>
-        </BindingProperty>
-      </BindingProperties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Search"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="else jLabel1.setText(&quot;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if(Quotations.logged_in)"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

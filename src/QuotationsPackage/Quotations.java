@@ -10,7 +10,10 @@ package QuotationsPackage;
  */
 public class Quotations {
     public static boolean logged_in = false;
-
+    public static int currentUserID = 0;
+    public static String currentUserFirst = null;
+    public static String currentUserLast = null;
+    
     /**
      * @param args the command line arguments
      */

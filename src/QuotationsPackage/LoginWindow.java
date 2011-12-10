@@ -132,6 +132,9 @@ private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     try {
         int count = 0;
+        int userID = 0;
+        String userFirst = "";
+        String userLast = "";
         String dbUser = "csci511";
         String dbPass = "csci511";
         String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
@@ -141,15 +144,23 @@ private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         //check if user and password combo exist
         PreparedStatement ps;
         ResultSet rs = null;
-        ps = conn.prepareStatement("SELECT LastName,UserID FROM Users WHERE FirstName = ? AND UserPassword = ?");
+        ps = conn.prepareStatement("SELECT FirstName,LastName,UserID FROM Users WHERE FirstName = ? AND UserPassword = ?");
         ps.setString(1,usernameEntered);
         ps.setString(2,passwordEntered);
         rs = ps.executeQuery();
         while(rs.next()) {
+            System.out.println("while loop");
             count++;
+            userID = rs.getInt("UserID");
+            userFirst = rs.getString("FirstName");
+            userLast = rs.getString("LastName");
         }
         if(count>0) {
-            Quotations.logged_in = true; 
+            System.out.println("count > 0");
+            Quotations.logged_in = true;
+            Quotations.currentUserFirst = userFirst;
+            Quotations.currentUserLast = userLast;
+            Quotations.currentUserID = userID;
             Quotations.openMainMenu();
             this.dispose();
         }

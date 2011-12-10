@@ -4,9 +4,13 @@
  */
 package QuotationsPackage;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -100,6 +104,68 @@ public class Quotes implements Serializable {
 
     public int getUserID() {
         return userID;
+    }
+
+    public String getUser() {
+        Connection conn = null;
+        int count = 0;
+        String userFirst = "";
+        String userLast = "";
+        try {
+            String dbUser = "csci511";
+            String dbPass = "csci511";
+            String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
+
+            //check if user and password combo exist
+            PreparedStatement ps;
+            ResultSet rs = null;
+            ps = (PreparedStatement) conn.prepareStatement("SELECT FirstName,LastName FROM Users WHERE UserID = ?");
+            ps.setInt(1,userID);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                System.out.println("while loop");
+                count++;
+                userFirst = rs.getString("FirstName");
+                userLast = rs.getString("LastName");
+            }
+
+        }
+        catch(Exception e) {}
+        if(count>0) return userFirst;
+        else return "Unknown";
+    }
+    
+    public String getAuthor() {
+        Connection conn = null;
+        int count = 0;
+        String authorFirst = "";
+        String authorLast = "";
+        try {
+            String dbUser = "csci511";
+            String dbPass = "csci511";
+            String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
+
+            //check if user and password combo exist
+            PreparedStatement ps;
+            ResultSet rs = null;
+            ps = (PreparedStatement) conn.prepareStatement("SELECT FirstName,LastName FROM Authors WHERE AuthorID = ?");
+            ps.setInt(1,authorID);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                System.out.println("while loop");
+                count++;
+                authorFirst = rs.getString("FirstName");
+                authorLast = rs.getString("LastName");
+            }
+
+        }
+        catch(Exception e) {}
+        if(count>0) return authorFirst;
+        else return "Unknown";
     }
 
     public void setUserID(int userID) {

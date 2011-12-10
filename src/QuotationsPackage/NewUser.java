@@ -158,6 +158,7 @@ private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     String firstName = firstNameEntered.getText();
     String lastName = lastNameEntered.getText();
     String password = passwordEntered.getText();
+    int userID = 0;
     try {
  
         int count = 0;
@@ -178,7 +179,23 @@ private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         ps.close();
       
         if(count>0) {
-            Quotations.logged_in = true; 
+            count = 0;
+            ps = (PreparedStatement) conn.prepareStatement("SELECT UserID FROM Users WHERE FirstName = ? AND LastName = ? AND UserPassword ?");
+            ps.setString(1,firstName);
+            ps.setString(2,lastName);
+            ps.setString(3,password);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+                userID = rs.getInt("UserID");
+            }
+            ps.close();
+            if(count>0) {
+                Quotations.logged_in = true; 
+                Quotations.currentUserFirst = firstName;
+                Quotations.currentUserLast = lastName;
+                Quotations.currentUserID = userID;
+            }
             Quotations.openMainMenu();
             System.out.println("Account created!");
             this.dispose();
