@@ -1,8 +1,13 @@
+/**
+ * Class for RowSorterToStringConverter
+ * Source:				//TODO: add source URL
+ */
 package QuotationsPackage;
 
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
+
 import org.jdesktop.beansbinding.Converter;
 
 /**
@@ -44,7 +49,7 @@ public class RowSorterToStringConverter extends Converter {
             char c = m.charAt(i);
             sb.append('[').append(Character.toLowerCase(c)).append(Character.toUpperCase(c)).append(']');
         }
-        sorter.setRowFilter(RowFilter.regexFilter(".*" + sb + ".*"));
+        sorter.setRowFilter(RowFilter.regexFilter(".*" + sb + ".*"));		//BUG HERE
         return sorter;
     }
 }

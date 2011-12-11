@@ -1,17 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Class for Quotes
+ * Contains all the database querys and what not for the Quotes table
+ * Some of this was generated with NetBeans, and modified as necessary
+ * @author	Casey Harford & NetBeans
  */
 package QuotationsPackage;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +21,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
-/**
- *
- * @author c_harford
- */
 @Entity
 @Table(name = "Quotes", catalog = "quotations", schema = "")
 @NamedQueries({

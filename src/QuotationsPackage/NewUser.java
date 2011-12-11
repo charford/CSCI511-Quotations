@@ -1,24 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * NewUser.java
- *
- * Created on Dec 8, 2011, 11:16:02 PM
+/**
+ * Class for NewUser, makes a form for the user to signup
+ * @author Casey Harford
  */
 package QuotationsPackage;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
-/**
- *
- * @author c_harford
- */
 public class NewUser extends javax.swing.JFrame {
 
     /** Creates new form NewUser */
@@ -143,74 +133,74 @@ public class NewUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void lastNameEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameEnteredActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_lastNameEnteredActionPerformed
+	private void lastNameEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameEnteredActionPerformed
+	// TODO add your handling code here:
+	}//GEN-LAST:event_lastNameEnteredActionPerformed
 
-private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-    Quotations.openMainMenu();
-    this.dispose();
-}//GEN-LAST:event_cancelButtonActionPerformed
+	private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+	    Quotations.openMainMenu();
+	    this.dispose();
+	}//GEN-LAST:event_cancelButtonActionPerformed
 
-private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
+	private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
 
-    Connection conn = null;
-    String firstName = firstNameEntered.getText();
-    String lastName = lastNameEntered.getText();
-    String password = passwordEntered.getText();
-    int userID = 0;
-    try {
+	    Connection conn = null;
+	    String firstName = firstNameEntered.getText();
+	    String lastName = lastNameEntered.getText();
+	    String password = passwordEntered.getText();
+	    int userID = 0;
+	    try {
  
-        int count = 0;
-        String dbUser = "csci511";
-        String dbPass = "csci511";
-        String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
+	        int count = 0;
+	        String dbUser = "csci511";
+	        String dbPass = "csci511";
+	        String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
+	        Class.forName("com.mysql.jdbc.Driver").newInstance();
+	        conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
         
-        //check if user and password combo exist
-        PreparedStatement ps;
-        ResultSet rs = null;
-        ps = (PreparedStatement) conn.prepareStatement("INSERT INTO Users (FirstName,LastName,UserPassword) VALUES (?,?,?)");
-        ps.setString(1,firstName);
-        ps.setString(2,lastName);
-        ps.setString(3,password);
-        count = ps.executeUpdate();
-        ps.close();
+	        //check if user and password combo exist
+	        PreparedStatement ps;
+	        ResultSet rs = null;
+	        ps = (PreparedStatement) conn.prepareStatement("INSERT INTO Users (FirstName,LastName,UserPassword) VALUES (?,?,?)");
+	        ps.setString(1,firstName);
+	        ps.setString(2,lastName);
+	        ps.setString(3,password);
+	        count = ps.executeUpdate();
+	        ps.close();
       
-        if(count>0) {
-            count = 0;
-            ps = (PreparedStatement) conn.prepareStatement("SELECT UserID FROM Users WHERE FirstName = ? AND LastName = ? AND UserPassword ?");
-            ps.setString(1,firstName);
-            ps.setString(2,lastName);
-            ps.setString(3,password);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                count++;
-                userID = rs.getInt("UserID");
-            }
-            ps.close();
-            if(count>0) {
-                Quotations.logged_in = true; 
-                Quotations.currentUserFirst = firstName;
-                Quotations.currentUserLast = lastName;
-                Quotations.currentUserID = userID;
-            }
-            Quotations.openMainMenu();
-            System.out.println("Account created!");
-            this.dispose();
-        }
-    }
-    catch(Exception e) {}
-}//GEN-LAST:event_signupButtonActionPerformed
+	        if(count>0) {
+	            count = 0;
+	            ps = (PreparedStatement) conn.prepareStatement("SELECT UserID FROM Users WHERE FirstName = ? AND LastName = ? AND UserPassword ?");
+	            ps.setString(1,firstName);
+	            ps.setString(2,lastName);
+	            ps.setString(3,password);
+	            rs = ps.executeQuery();
+	            while (rs.next()) {
+	                count++;
+	                userID = rs.getInt("UserID");
+	            }
+	            ps.close();
+	            if(count>0) {
+	                Quotations.logged_in = true; 
+	                Quotations.currentUserFirst = firstName;
+	                Quotations.currentUserLast = lastName;
+	                Quotations.currentUserID = userID;
+	            }
+	            Quotations.openMainMenu();
+	            System.out.println("Account created!");
+	            this.dispose();
+	        }
+	    }
+	    catch(Exception e) {}
+	}//GEN-LAST:event_signupButtonActionPerformed
 
-private void firstNameEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameEnteredActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_firstNameEnteredActionPerformed
+	private void firstNameEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameEnteredActionPerformed
+	// TODO add your handling code here:
+	}//GEN-LAST:event_firstNameEnteredActionPerformed
 
-private void passwordEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordEnteredActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_passwordEnteredActionPerformed
+	private void passwordEnteredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordEnteredActionPerformed
+	// TODO add your handling code here:
+	}//GEN-LAST:event_passwordEnteredActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

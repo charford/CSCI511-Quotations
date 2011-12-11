@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Class for Quotations
+ * Contains the main method, and invokes the MainMenu
  */
 package QuotationsPackage;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author c_harford
- */
 public class Quotations {
     public static boolean logged_in = false;
     public static int currentUserID = 0;
@@ -17,17 +13,27 @@ public class Quotations {
     public static String currentUserLast = null;
     public static ArrayList<String> authors = new ArrayList();
     
+	/**
+	 * getAuthors method, returns a list of Authors currently in the list
+	 * @return ArrayList<String> authors
+	 */
     public static ArrayList<String> getAuthors() {
         return authors;
     }
+
     /**
+	 * main method
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         openMainMenu();
     }
     
-    public static int openMainMenu() {
+	/**
+	 * openMainMenu method, opens the main menu, can be called from outside
+	 * classes to display main menu
+	 */
+    public static void openMainMenu() {
    
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -39,6 +45,5 @@ public class Quotations {
                 mainMenu.setResizable(false);
             }
         }); 
-        return 0;
     }
 }
