@@ -106,21 +106,14 @@ public class Quotes implements Serializable {
     }
 
     public String getUser() {
-        Connection conn = null;
         int count = 0;
         String userFirst = "";
         String userLast = "";
         try {
-            String dbUser = "csci511";
-            String dbPass = "csci511";
-            String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
-
             //check if user and password combo exist
             PreparedStatement ps;
             ResultSet rs = null;
-            ps = (PreparedStatement) conn.prepareStatement("SELECT FirstName,LastName FROM Users WHERE UserID = ?");
+            ps = (PreparedStatement) Quotations.conn.prepareStatement("SELECT FirstName,LastName FROM Users WHERE UserID = ?");
             ps.setInt(1,userID);
             rs = ps.executeQuery();
             while(rs.next()) {
@@ -136,21 +129,14 @@ public class Quotes implements Serializable {
     }
     
     public String getAuthor() {
-        Connection conn = null;
         int count = 0;
         String authorFirst = "";
         String authorLast = "";
         try {
-            String dbUser = "csci511";
-            String dbPass = "csci511";
-            String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
-
             //check if user and password combo exist
             PreparedStatement ps;
             ResultSet rs = null;
-            ps = (PreparedStatement) conn.prepareStatement("SELECT FirstName,LastName FROM Authors WHERE AuthorID = ?");
+            ps = (PreparedStatement) Quotations.conn.prepareStatement("SELECT FirstName,LastName FROM Authors WHERE AuthorID = ?");
             ps.setInt(1,authorID);
             rs = ps.executeQuery();
             while(rs.next()) {

@@ -403,13 +403,8 @@ public class ShowQuotes extends JPanel {
 	    PreparedStatement ps;
 	    Connection conn = null;
 	    try {
-	        String dbUser = "csci511";
-	        String dbPass = "csci511";
-	        String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
-	        Class.forName("com.mysql.jdbc.Driver").newInstance();
-	        conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
 	        System.out.println("try statement, quote id: " + quoteID);
-	        ps = (PreparedStatement) conn.prepareStatement("UPDATE Quotes SET Likes=Likes+1 WHERE QuoteNumber = ?");
+	        ps = (PreparedStatement) Quotations.conn.prepareStatement("UPDATE Quotes SET Likes=Likes+1 WHERE QuoteNumber = ?");
 	        ps.setInt(1,quoteID);
 	        ps.executeUpdate();
 	    }

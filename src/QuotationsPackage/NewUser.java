@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import javax.swing.JOptionPane;
 
 public class NewUser extends javax.swing.JFrame {
 
@@ -144,7 +145,6 @@ public class NewUser extends javax.swing.JFrame {
 
 	private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
 
-	    Connection conn = null;
 	    String firstName = firstNameEntered.getText();
 	    String lastName = lastNameEntered.getText();
 	    String password = passwordEntered.getText();
@@ -152,44 +152,49 @@ public class NewUser extends javax.swing.JFrame {
 	    try {
  
 	        int count = 0;
-	        String dbUser = "csci511";
-	        String dbPass = "csci511";
-	        String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
-	        Class.forName("com.mysql.jdbc.Driver").newInstance();
-	        conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
-        
+                int countB = 0;
+	        
 	        //check if user and password combo exist
-	        PreparedStatement ps;
+	        PreparedStatement psInsert;
+                PreparedStatement psSelect;
 	        ResultSet rs = null;
-	        ps = (PreparedStatement) conn.prepareStatement("INSERT INTO Users (FirstName,LastName,UserPassword) VALUES (?,?,?)");
-	        ps.setString(1,firstName);
-	        ps.setString(2,lastName);
-	        ps.setString(3,password);
-	        count = ps.executeUpdate();
-	        ps.close();
-      
+	        psInsert = (PreparedStatement) Quotations.conn.prepareStatement("INSERT INTO Users (FirstName,LastName,UserPassword) VALUES (?,?,?)");
+	        psInsert.setString(1,firstName);
+	        psInsert.setString(2,lastName);
+	        psInsert.setString(3,password);
+	        count = psInsert.executeUpdate();
+	        psInsert.close();
+                System.out.println("Count = " + count);
 	        if(count>0) {
-	            count = 0;
-	            ps = (PreparedStatement) conn.prepareStatement("SELECT UserID FROM Users WHERE FirstName = ? AND LastName = ? AND UserPassword ?");
-	            ps.setString(1,firstName);
-	            ps.setString(2,lastName);
-	            ps.setString(3,password);
-	            rs = ps.executeQuery();
-	            while (rs.next()) {
-	                count++;
-	                userID = rs.getInt("UserID");
-	            }
-	            ps.close();
-	            if(count>0) {
-	                Quotations.logged_in = true; 
-	                Quotations.currentUserFirst = firstName;
-	                Quotations.currentUserLast = lastName;
-	                Quotations.currentUserID = userID;
-	            }
-	            Quotations.openMainMenu();
-	            System.out.println("Account created!");
+                    // System.out.println("preparing statement...");
+                    // 	            psSelect = (PreparedStatement) Quotations.conn.prepareStatement("SELECT UserID FROM Users WHERE FirstName = ? AND LastName = ? AND UserPassword ? LIMIT 1");
+                    // 	            System.out.println("setting values...");
+                    //                psSelect.setString(1,firstName);
+                    // 	            psSelect.setString(2,lastName);
+                    // 	            psSelect.setString(3,password);
+                    //                System.out.println("executing query...");
+                    // 	            rs = psSelect.executeQuery();
+                    // 	            while (rs.next()) {
+                    //                    System.out.println("while loop");
+                    // 	                countB++;
+                    // 	                userID = rs.getInt("UserID");
+                    // 	            }
+                    // 	            psSelect.close();
+                    //                System.out.println("CountB = " + countB);
+                    // 	            if(countB>0) {
+                    // 	                Quotations.logged_in = true; 
+                    // 	                Quotations.currentUserFirst = firstName;
+                    // 	                Quotations.currentUserLast = lastName;
+                    // 	                Quotations.currentUserID = userID;
+                    // 	            }
+   	            Quotations.openMainMenu();
+   	            System.out.println("Account created!");
+                    JOptionPane.showMessageDialog(this,"You're account was created successfuly. You must login now.");
 	            this.dispose();
 	        }
+                else {
+                    JOptionPane.showMessageDialog(this,"An error occurred trying to create your account. Please try again.");
+                }
 	    }
 	    catch(Exception e) {}
 	}//GEN-LAST:event_signupButtonActionPerformed
