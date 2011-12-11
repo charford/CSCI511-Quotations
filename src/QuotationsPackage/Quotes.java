@@ -11,6 +11,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +37,7 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Quotes.findByUserID", query = "SELECT q FROM Quotes q WHERE q.userID = :userID"),
     @NamedQuery(name = "Quotes.findByLikes", query = "SELECT q FROM Quotes q WHERE q.likes = :likes")})
 public class Quotes implements Serializable {
+    
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -125,7 +127,6 @@ public class Quotes implements Serializable {
             ps.setInt(1,userID);
             rs = ps.executeQuery();
             while(rs.next()) {
-                System.out.println("while loop");
                 count++;
                 userFirst = rs.getString("FirstName");
                 userLast = rs.getString("LastName");
@@ -156,7 +157,6 @@ public class Quotes implements Serializable {
             ps.setInt(1,authorID);
             rs = ps.executeQuery();
             while(rs.next()) {
-                System.out.println("while loop");
                 count++;
                 authorFirst = rs.getString("FirstName");
                 authorLast = rs.getString("LastName");
@@ -164,7 +164,10 @@ public class Quotes implements Serializable {
 
         }
         catch(Exception e) {}
-        if(count>0) return authorFirst;
+        if(count>0) { 
+            Quotations.authors.add(authorFirst);
+            return authorFirst; 
+        }
         else return "Unknown";
     }
 

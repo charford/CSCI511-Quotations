@@ -4,6 +4,8 @@
  */
 package QuotationsPackage;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author c_harford
@@ -13,7 +15,11 @@ public class Quotations {
     public static int currentUserID = 0;
     public static String currentUserFirst = null;
     public static String currentUserLast = null;
+    public static ArrayList<String> authors = new ArrayList();
     
+    public static ArrayList<String> getAuthors() {
+        return authors;
+    }
     /**
      * @param args the command line arguments
      */

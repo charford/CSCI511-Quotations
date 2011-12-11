@@ -132,7 +132,7 @@ private void showQuotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
-                frame.setResizable(true);
+                frame.setResizable(false);
                 frame.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent evt) {
