@@ -65,7 +65,7 @@
                   <Component id="masterScrollPane" alignment="1" pref="621" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="searchField" alignment="1" pref="525" max="32767" attributes="1"/>
+                          <Component id="searchField" alignment="1" pref="488" max="32767" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="newButton" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -92,30 +92,33 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="quoteIDLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="userIDLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="authorIDLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="authorIDField" alignment="0" max="32767" attributes="1"/>
+                          <Component id="quoteIDField" alignment="0" max="32767" attributes="1"/>
+                          <Component id="userIDField" alignment="0" pref="38" max="32767" attributes="1"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="quoteLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="authorIDLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="quoteLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="quoteLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="quoteField" pref="546" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="authorIDField" min="-2" pref="48" max="-2" attributes="1"/>
-                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                              <Component id="userIDLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="userIDField" min="-2" pref="46" max="-2" attributes="1"/>
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="quoteIDLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="quoteIDField" min="-2" pref="43" max="-2" attributes="0"/>
-                              <EmptySpace pref="70" max="32767" attributes="0"/>
+                          <Component id="quoteField" pref="541" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="authorCombo" min="-2" pref="182" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
                               <Component id="likesLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="likesField" min="-2" pref="43" max="-2" attributes="1"/>
+                              <Component id="likesField" pref="38" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                   </Group>
@@ -137,16 +140,14 @@
                   <Component id="quoteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="quoteField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="authorIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="authorIDField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="userIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="userIDField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="quoteIDField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="quoteIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="likesField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="likesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="likesField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quoteLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="likesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="authorCombo" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -155,6 +156,8 @@
                   <Component id="deleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="newButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="likeButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="quoteIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="quoteIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -162,9 +165,15 @@
                   <Component id="userRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="authorRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchByLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="userIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="userIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="searchField" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="searchField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="authorIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="authorIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -180,6 +189,7 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="masterTable">
           <Properties>
+            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -391,6 +401,9 @@
           </Property>
         </BindingProperty>
       </BindingProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="likeButton">
       <Properties>
@@ -401,6 +414,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="quoteIDField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.quoteNumber}" target="quoteIDField" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
@@ -427,6 +443,30 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Quotations"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="quoteLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Author:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="authorCombo">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <BindingProperties>
+        <BindingProperty name="selectedItem" source="masterTable" sourcePath="${selectedElement.authorID}" target="authorCombo" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="*/"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="/*"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

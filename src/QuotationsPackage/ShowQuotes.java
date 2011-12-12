@@ -8,10 +8,12 @@
 package QuotationsPackage;
 
 import java.beans.Beans;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.RollbackException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,6 +27,7 @@ public class ShowQuotes extends JPanel {
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
         }
+        searchField.setText("");
     }
 
     /** This method is called from within the constructor to		// This method was generated with NetBeans,
@@ -65,12 +68,15 @@ public class ShowQuotes extends JPanel {
         quoteIDLabel = new javax.swing.JLabel();
         searchByLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
+        quoteLabel1 = new javax.swing.JLabel();
+        authorCombo = new javax.swing.JComboBox();
 
         FormListener formListener = new FormListener();
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ObjectProperty.create(), rowSorterToStringConverter1, org.jdesktop.beansbinding.BeanProperty.create("table"));
         bindingGroup.addBinding(binding);
 
+        masterTable.setAutoCreateRowSorter(true);
         masterTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         masterTable.setGridColor(new java.awt.Color(204, 204, 204));
         masterTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -161,9 +167,12 @@ public class ShowQuotes extends JPanel {
         binding.setConverter(rowSorterToStringConverter1);
         bindingGroup.addBinding(binding);
 
+        searchField.addActionListener(formListener);
+
         likeButton.setText("Like");
         likeButton.addActionListener(formListener);
 
+        quoteIDField.setEditable(false);
         quoteIDField.setEditable(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.quoteNumber}"), quoteIDField, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -176,6 +185,16 @@ public class ShowQuotes extends JPanel {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 1, 36));
         titleLabel.setText("Quotations");
 
+        quoteLabel1.setText("Author:");
+
+        /*
+        authorCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.authorID}"), authorCombo, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        */
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,7 +205,7 @@ public class ShowQuotes extends JPanel {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, masterScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(searchField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                            .add(searchField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(newButton)
@@ -207,28 +226,29 @@ public class ShowQuotes extends JPanel {
                                         .add(saveButton)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(likeButton)))))
-                        .add(96, 96, 96))
+                        .add(20, 20, 20)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(quoteIDLabel)
+                            .add(userIDLabel)
+                            .add(authorIDLabel))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, authorIDField)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, quoteIDField)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, userIDField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(quoteLabel)
-                            .add(authorIDLabel))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(quoteLabel1))
+                        .add(33, 33, 33)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(quoteField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                .add(authorIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(54, 54, 54)
-                                .add(userIDLabel)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(userIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(65, 65, 65)
-                                .add(quoteIDLabel)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(quoteIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 70, Short.MAX_VALUE)
+                            .add(quoteField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                            .add(layout.createSequentialGroup()
+                                .add(authorCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 182, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(274, 274, 274)
                                 .add(likesLabel)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(likesField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(likesField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))))
                     .add(titleLabel))
                 .addContainerGap())
         );
@@ -247,30 +267,34 @@ public class ShowQuotes extends JPanel {
                     .add(quoteLabel)
                     .add(quoteField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(authorIDLabel)
-                    .add(authorIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(userIDLabel)
-                    .add(userIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(quoteIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(quoteIDLabel)
-                    .add(likesField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(likesLabel))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(likesField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(quoteLabel1)
+                        .add(likesLabel))
+                    .add(authorCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(saveButton)
                     .add(refreshButton)
                     .add(deleteButton)
                     .add(newButton)
-                    .add(likeButton))
+                    .add(likeButton)
+                    .add(quoteIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(quoteIDLabel))
                 .add(7, 7, 7)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(quoteRadioButton)
                     .add(userRadioButton)
                     .add(authorRadioButton)
-                    .add(searchByLabel))
+                    .add(searchByLabel)
+                    .add(userIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(userIDLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(searchField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(searchField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(authorIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(authorIDLabel))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -297,6 +321,9 @@ public class ShowQuotes extends JPanel {
             else if (evt.getSource() == likeButton) {
                 ShowQuotes.this.likeButtonActionPerformed(evt);
             }
+            else if (evt.getSource() == searchField) {
+                ShowQuotes.this.searchFieldActionPerformed(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -318,7 +345,7 @@ public class ShowQuotes extends JPanel {
     
 	/**
 	 * deleteButton action, deletes the currently selected quote, requires user to be logged in
-	 * @param evt	ActionEvent that occures(clicking delete)
+	 * @param evt	ActionEvent that occurs(clicking delete)
 	 */
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if(!Quotations.logged_in) {
@@ -346,6 +373,25 @@ public class ShowQuotes extends JPanel {
             JOptionPane.showMessageDialog(this,"You must be logged in to add new quotes.");
             return;
         }
+        
+        /** get the list of authors from database */
+        PreparedStatement ps;
+        ResultSet rs;
+        ArrayList<String> authors = new ArrayList();
+        authors.add("Select Author");
+        try {
+            ps = (PreparedStatement) Quotations.conn.prepareStatement
+                ("SELECT CONCAT(FirstName,' ',LastName) as authorName FROM Authors ORDER BY AuthorID");
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                authors.add(rs.getString("authorName"));
+            }
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(ShowQuotes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        authorCombo.setModel(new javax.swing.DefaultComboBoxModel(authors.toArray()));
         searchField.setText("");
         QuotationsPackage.Quotes q = new QuotationsPackage.Quotes();
         entityManager.persist(q);
@@ -421,7 +467,12 @@ public class ShowQuotes extends JPanel {
 	    list.addAll(data);
 	}//GEN-LAST:event_likeButtonActionPerformed
 
+private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_searchFieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox authorCombo;
     private javax.swing.JTextField authorIDField;
     private javax.swing.JLabel authorIDLabel;
     private javax.swing.JRadioButton authorRadioButton;
@@ -439,6 +490,7 @@ public class ShowQuotes extends JPanel {
     private javax.swing.JTextField quoteIDField;
     private javax.swing.JLabel quoteIDLabel;
     private javax.swing.JLabel quoteLabel;
+    private javax.swing.JLabel quoteLabel1;
     private javax.swing.JRadioButton quoteRadioButton;
     private javax.swing.JButton refreshButton;
     private QuotationsPackage.RowSorterToStringConverter rowSorterToStringConverter1;
