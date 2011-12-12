@@ -40,8 +40,8 @@ public class ShowQuotes extends JPanel {
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("quotationsPU").createEntityManager();
         query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT q FROM Quotes q");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
-        rowSorterToStringConverter1 = new QuotationsPackage.RowSorterToStringConverter();
         searchByGroup = new javax.swing.ButtonGroup();
+        rowSorterToStringConverter1 = new QuotationsPackage.RowSorterToStringConverter();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
         quoteLabel = new javax.swing.JLabel();
@@ -60,7 +60,6 @@ public class ShowQuotes extends JPanel {
         userRadioButton = new javax.swing.JRadioButton();
         authorRadioButton = new javax.swing.JRadioButton();
         searchField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
         likeButton = new javax.swing.JButton();
         quoteIDField = new javax.swing.JTextField();
         quoteIDLabel = new javax.swing.JLabel();
@@ -68,6 +67,9 @@ public class ShowQuotes extends JPanel {
         titleLabel = new javax.swing.JLabel();
 
         FormListener formListener = new FormListener();
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ObjectProperty.create(), rowSorterToStringConverter1, org.jdesktop.beansbinding.BeanProperty.create("table"));
+        bindingGroup.addBinding(binding);
 
         masterTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         masterTable.setGridColor(new java.awt.Color(204, 204, 204));
@@ -99,7 +101,7 @@ public class ShowQuotes extends JPanel {
 
         likesLabel.setText("Likes:");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.quote}"), quoteField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.quote}"), quoteField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue(null);
         bindingGroup.addBinding(binding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), quoteField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
@@ -152,14 +154,12 @@ public class ShowQuotes extends JPanel {
         userRadioButton.setText("User");
 
         searchByGroup.add(authorRadioButton);
+        authorRadioButton.setSelected(true);
         authorRadioButton.setText("Author");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${rowSorter}"), searchField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setConverter(rowSorterToStringConverter1);
         bindingGroup.addBinding(binding);
-
-        searchButton.setText("Search");
-        searchButton.addActionListener(formListener);
 
         likeButton.setText("Like");
         likeButton.addActionListener(formListener);
@@ -207,8 +207,7 @@ public class ShowQuotes extends JPanel {
                                         .add(saveButton)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(likeButton)))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(searchButton))
+                        .add(96, 96, 96))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(quoteLabel)
@@ -271,9 +270,7 @@ public class ShowQuotes extends JPanel {
                     .add(authorRadioButton)
                     .add(searchByLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(searchButton)
-                    .add(searchField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(searchField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -296,9 +293,6 @@ public class ShowQuotes extends JPanel {
             }
             else if (evt.getSource() == deleteButton) {
                 ShowQuotes.this.deleteButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == searchButton) {
-                ShowQuotes.this.searchButtonActionPerformed(evt);
             }
             else if (evt.getSource() == likeButton) {
                 ShowQuotes.this.likeButtonActionPerformed(evt);
@@ -339,6 +333,7 @@ public class ShowQuotes extends JPanel {
             entityManager.remove(q);
         }
         list.removeAll(toRemove);
+        refreshButtonActionPerformed(evt);
     }//GEN-LAST:event_deleteButtonActionPerformed
     
 	/**
@@ -351,10 +346,11 @@ public class ShowQuotes extends JPanel {
             JOptionPane.showMessageDialog(this,"You must be logged in to add new quotes.");
             return;
         }
+        searchField.setText("");
         QuotationsPackage.Quotes q = new QuotationsPackage.Quotes();
         entityManager.persist(q);
         list.add(q);
-        int row = list.size() - 1;
+        int row = masterTable.getRowCount() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));  
         userIDField.setText(Integer.toString(Quotations.currentUserID));
@@ -382,17 +378,13 @@ public class ShowQuotes extends JPanel {
             list.clear();
             list.addAll(merged);
         }
+        refreshButtonActionPerformed(evt);
     }//GEN-LAST:event_saveButtonActionPerformed
 
 	/**
 	 * searchButton action, not complete yet, may be removed in future.
 	 * @param evt	event occuring(search button pressed)
-	 */
-	private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-		// TODO add your handling code here:
- 
-	}//GEN-LAST:event_searchButtonActionPerformed
-	
+	 */	
 	/**
 	 * likeQuote method, increments the current like by 1
 	 * @param quoteID	this is the QuoteNumber to be "liked"
@@ -451,7 +443,6 @@ public class ShowQuotes extends JPanel {
     private javax.swing.JButton refreshButton;
     private QuotationsPackage.RowSorterToStringConverter rowSorterToStringConverter1;
     private javax.swing.JButton saveButton;
-    private javax.swing.JButton searchButton;
     private javax.swing.ButtonGroup searchByGroup;
     private javax.swing.JLabel searchByLabel;
     private javax.swing.JTextField searchField;

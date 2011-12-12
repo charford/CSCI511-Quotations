@@ -166,27 +166,6 @@ public class NewUser extends javax.swing.JFrame {
 	        psInsert.close();
                 System.out.println("Count = " + count);
 	        if(count>0) {
-                    // System.out.println("preparing statement...");
-                    // 	            psSelect = (PreparedStatement) Quotations.conn.prepareStatement("SELECT UserID FROM Users WHERE FirstName = ? AND LastName = ? AND UserPassword ? LIMIT 1");
-                    // 	            System.out.println("setting values...");
-                    //                psSelect.setString(1,firstName);
-                    // 	            psSelect.setString(2,lastName);
-                    // 	            psSelect.setString(3,password);
-                    //                System.out.println("executing query...");
-                    // 	            rs = psSelect.executeQuery();
-                    // 	            while (rs.next()) {
-                    //                    System.out.println("while loop");
-                    // 	                countB++;
-                    // 	                userID = rs.getInt("UserID");
-                    // 	            }
-                    // 	            psSelect.close();
-                    //                System.out.println("CountB = " + countB);
-                    // 	            if(countB>0) {
-                    // 	                Quotations.logged_in = true; 
-                    // 	                Quotations.currentUserFirst = firstName;
-                    // 	                Quotations.currentUserLast = lastName;
-                    // 	                Quotations.currentUserID = userID;
-                    // 	            }
    	            Quotations.openMainMenu();
    	            System.out.println("Account created!");
                     JOptionPane.showMessageDialog(this,"You're account was created successfuly. You must login now.");
