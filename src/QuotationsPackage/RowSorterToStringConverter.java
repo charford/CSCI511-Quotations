@@ -1,6 +1,8 @@
 /**
  * Class for RowSorterToStringConverter
  * Source: http://netbeans.org/kb/67/java/gui-db-custom.html
+ * This class is used for the search function. It performs a filter
+ * on the columns, matching a regular expression
  */
 package QuotationsPackage;
 
@@ -16,12 +18,20 @@ import org.jdesktop.beansbinding.Converter;
 */
 public class RowSorterToStringConverter extends Converter {
 
+    /* defining table */
     private JTable table;
 
+    /**
+     * getTable method
+     * @return the table
+     */
     public JTable getTable() {
         return table;
     }
 
+    /**
+     * setTable method, 
+     */
     public void setTable(JTable table) {
         this.table = table;
     }

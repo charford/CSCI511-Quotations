@@ -1,7 +1,8 @@
 /*
  * Class for ShowQuotes
  * Displays a JTable full of quotes, along with the ability to add quotes, 
- * modify/delete(if database permissions allow), and like quotes.
+ * modify/delete(if database permissions allow), and like quotes. 
+ * This class was initially generated with netbeans, and modified.
  * @author Casey Harford
  */
 
@@ -23,10 +24,16 @@ import com.mysql.jdbc.PreparedStatement;
 public class ShowQuotes extends JPanel {
     
     public ShowQuotes() {
+        
+        /* initialize all the components */
         initComponents();
+        
+        /* this has to do with netbeans */
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
         }
+        
+        /* set the search field to nothing, for some reason it was getting filled with garbage*/
         searchField.setText("");
     }
 
@@ -166,8 +173,6 @@ public class ShowQuotes extends JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${rowSorter}"), searchField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setConverter(rowSorterToStringConverter1);
         bindingGroup.addBinding(binding);
-
-        searchField.addActionListener(formListener);
 
         likeButton.setText("Like");
         likeButton.addActionListener(formListener);
@@ -321,9 +326,6 @@ public class ShowQuotes extends JPanel {
             else if (evt.getSource() == likeButton) {
                 ShowQuotes.this.likeButtonActionPerformed(evt);
             }
-            else if (evt.getSource() == searchField) {
-                ShowQuotes.this.searchFieldActionPerformed(evt);
-            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -332,6 +334,10 @@ public class ShowQuotes extends JPanel {
 	 * @param evt	ActionEvent that occurs(clicking refresh)
 	 */
     @SuppressWarnings("unchecked")
+    
+    /**
+     * 
+     */
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         entityManager.getTransaction().rollback();
         entityManager.getTransaction().begin();
@@ -348,18 +354,40 @@ public class ShowQuotes extends JPanel {
 	 * @param evt	ActionEvent that occurs(clicking delete)
 	 */
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        
+        /* checking if user is logged in */
         if(!Quotations.logged_in) {
+            
+            /* not logged in, display error */
             JOptionPane.showMessageDialog(this,"You must be logged in to delete quotes.");
+            
+            /* and return */
             return;
         }
+        
+        /* get currently selected rows */
         int[] selected = masterTable.getSelectedRows();
+        
+        /* store the rows to be removed */
         List<QuotationsPackage.Quotes> toRemove = new ArrayList<QuotationsPackage.Quotes>(selected.length);
+        
+        /* for each row, remove it */
         for (int idx = 0; idx < selected.length; idx++) {
+            
+            /* get the row indexes */
             QuotationsPackage.Quotes q = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            
+            /* add them toRemove */
             toRemove.add(q);
+            
+            /* remove them from entity manager */
             entityManager.remove(q);
         }
+        
+        /* remove all items to be removed */
         list.removeAll(toRemove);
+        
+        /* refresh table display */
         refreshButtonActionPerformed(evt);
     }//GEN-LAST:event_deleteButtonActionPerformed
     
@@ -374,25 +402,51 @@ public class ShowQuotes extends JPanel {
             return;
         }
         
-        /** get the list of authors from database */
+        /* get the list of authors from database */
+        
+        /* using a prepared statement for select query */
         PreparedStatement ps;
+        
+        /* storing result in a ResultSet */
         ResultSet rs;
+        
+        /* authors, will be stored in a list with their first and last names conotated. */
         ArrayList<String> authors = new ArrayList();
+        
+        /* add the first entry(0), as Select Author, this will be displayed to the user,
+            before they select an author */
         authors.add("Select Author");
+        
         try {
+            
+            /* preparing the statement, notice CONCAT which takes First and Last, and makes them one field 
+                I did this so that I can display their full name in the drop down box */
             ps = (PreparedStatement) Quotations.conn.prepareStatement
                 ("SELECT CONCAT(FirstName,' ',LastName) as authorName FROM Authors ORDER BY AuthorID");
+                
+            /* getting a result */
             rs = ps.executeQuery();
+            
+            /* iterating through result */
             while(rs.next()) {
+                
+                /* add author's name to list */
                 authors.add(rs.getString("authorName"));
             }
         } 
         catch (SQLException ex) {
+            
+            /* output the errors */
             Logger.getLogger(ShowQuotes.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        /* the rest of this code was generated by netbeans. it updates the database with quote info */
         authorCombo.setModel(new javax.swing.DefaultComboBoxModel(authors.toArray()));
+        
+        /* make sure search field is not filtering results */
         searchField.setText("");
+        
+        /* create a new Quotes */
         QuotationsPackage.Quotes q = new QuotationsPackage.Quotes();
         entityManager.persist(q);
         list.add(q);
@@ -408,14 +462,25 @@ public class ShowQuotes extends JPanel {
 	 * @param evt ActionEvent that occurs(clicking save button)
 	 */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        
+        /* check if the user is logged in */
         if(!Quotations.logged_in) {
+            
+            /* not logged in, so display error */
             JOptionPane.showMessageDialog(this,"You must be logged in to save changes.");
+            
+            /* and return */
             return;
         }
+        
         try {
+            
+            /* save changes */
             entityManager.getTransaction().commit();
             entityManager.getTransaction().begin();
         } catch (RollbackException rex) {
+            
+            /* display any errors */
             entityManager.getTransaction().begin();
             List<QuotationsPackage.Quotes> merged = new ArrayList<QuotationsPackage.Quotes>(list.size());
             for (QuotationsPackage.Quotes q : list) {
@@ -428,25 +493,36 @@ public class ShowQuotes extends JPanel {
     }//GEN-LAST:event_saveButtonActionPerformed
 
 	/**
-	 * searchButton action, not complete yet, may be removed in future.
-	 * @param evt	event occuring(search button pressed)
-	 */	
-	/**
 	 * likeQuote method, increments the current like by 1
 	 * @param quoteID	this is the QuoteNumber to be "liked"
 	 */
 	private void likeQuote(int quoteID) {
-	    System.out.println("Liking quote: " + quoteID);
+
+        /* store result in a Result Set*/
 	    ResultSet rs = null;  
+	    
+	    /* use a prepared statement for UPDATE statement */
 	    PreparedStatement ps;
+	    
+	    /* set the connection to null */
 	    Connection conn = null;
+	    
 	    try {
-	        System.out.println("try statement, quote id: " + quoteID);
+	        
+	        /* preparing the statement to update database with LIKE+1 */
 	        ps = (PreparedStatement) Quotations.conn.prepareStatement("UPDATE Quotes SET Likes=Likes+1 WHERE QuoteNumber = ?");
+	        
+	        /* set the quoteID to update LIKE */
 	        ps.setInt(1,quoteID);
+	        
+	        /* execute the update */
 	        ps.executeUpdate();
 	    }
-	    catch (Exception e) {}
+	    catch (Exception e) {
+	        
+	        /* output errors to console */
+	        System.err.println(e.getMessage());
+	    }
 	}
 	
 	/**
@@ -454,9 +530,15 @@ public class ShowQuotes extends JPanel {
 	 * @param evt	ActionEvent that occurs when pressing the like button
 	 */
 	private void likeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_likeButtonActionPerformed
+	    
+	    /* check to make sure a quote is selected */
 	    if(!quoteIDField.getText().equalsIgnoreCase("")) 
 	        likeQuote(Integer.parseInt(quoteIDField.getText()));
+	        
+	    /* if not, then stop right here */
 	    else return;
+	    
+	    /* refresh data display in table */
 	    entityManager.getTransaction().rollback();
 	    entityManager.getTransaction().begin();
 	    java.util.Collection data = query.getResultList();
@@ -466,10 +548,6 @@ public class ShowQuotes extends JPanel {
 	    list.clear();
 	    list.addAll(data);
 	}//GEN-LAST:event_likeButtonActionPerformed
-
-private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox authorCombo;

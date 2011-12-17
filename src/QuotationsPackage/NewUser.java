@@ -13,6 +13,8 @@ public class NewUser extends javax.swing.JFrame {
 
     /** Creates new form NewUser */
     public NewUser() {
+        
+        /* intialize all the components for this window */
         initComponents();
     }
 
@@ -120,7 +122,11 @@ public class NewUser extends javax.swing.JFrame {
 	 * @param evt	the event taking place(clicking cancel button)
 	 */
 	private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+	    
+	    /* open the main menu */
 	    Quotations.openMainMenu();
+	    
+	    /* and close this one */
 	    this.dispose();
 	}//GEN-LAST:event_cancelButtonActionPerformed
 

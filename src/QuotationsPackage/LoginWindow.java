@@ -1,5 +1,7 @@
 /**
  * Class for LoginWindow
+ * Displays user login/password, and allows user to login to application
+ * @author Casey Harford
  * 
  */
 package QuotationsPackage;
@@ -113,53 +115,108 @@ public class LoginWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * loginButtonActionPerformed method, this method gets called when the login button is pressed. 
+     * It checks to see if user is a valid user, and there password is correct, if so logs user in.
+     * @param evt   The action being performed(pressing login button)
+     */
 	private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-	// TODO add your handling code here:
+	    
+        /* get the username which was enetered */
 	    String usernameEntered = usernameField.getText();
+	    
+        /* get the password which was enetered */
 	    String passwordEntered = passwordField.getText();
 
+        /* we'll use this to connect to database */
 	    Connection conn = null;
     
 	    try {
+	        /* count the number of rows returned */
 	        int count = 0;
+	        
+	        /* store the userID temporarily, default is 0(unknown) */
 	        int userID = 0;
+	        
+	        /* store the user's first name temporarily */
 	        String userFirst = "";
+
+	        /* store the user's last name temporarily */
 	        String userLast = "";
-	        String dbUser = "csci511";
-	        String dbPass = "csci511";
-	        String URL = "jdbc:mysql://challinger.ecst.csuchico.edu:5551/quotations";
-	        Class.forName("com.mysql.jdbc.Driver").newInstance();
-	        conn =  (Connection) DriverManager.getConnection(URL,dbUser,dbPass);
         
-	        //check if user and password combo exist
+            /* using a PreparedStatement to perform a SELECT */
 	        PreparedStatement ps;
+	        
+	        /* store the result in a ResultSet */
 	        ResultSet rs = null;
-	        ps = conn.prepareStatement("SELECT FirstName,LastName,UserID FROM Users WHERE FirstName = ? AND UserPassword = ?");
+	        
+	        /* preparing the statement... */
+	        ps = Quotations.conn.prepareStatement("SELECT FirstName,LastName,UserID FROM Users WHERE LastName = ? AND UserPassword = ?");
+	        
+	        /* set the parameter for username */
 	        ps.setString(1,usernameEntered);
+
+	        /* set the parameter for username */
 	        ps.setString(2,passwordEntered);
+	        
+	        /* parameters are set, execute the query! */
 	        rs = ps.executeQuery();
+	        
+	        /* iterate through rows returned, counting each */
 	        while(rs.next()) {
-	            System.out.println("while loop");
+	            
+	            /* increment the count for rows */
 	            count++;
+	            
+	            /* store the userID */
 	            userID = rs.getInt("UserID");
+	            
+	            /* store the userFirst, this way we don't have to perform another database select
+	                statement at the main menu for displaying user's first and last name.*/
 	            userFirst = rs.getString("FirstName");
+	            
+	            /* store the userLast name */
 	            userLast = rs.getString("LastName");
 	        }
+	        
+	        /* if the count is greater to 0, that means there was a match! time to login the user.*/
 	        if(count>0) {
-	            System.out.println("count > 0");
+
+                /* change logged_in to true, meaning the user is signed in */
 	            Quotations.logged_in = true;
+	            
+	            /* store their first name */
 	            Quotations.currentUserFirst = userFirst;
+
+	            /* store their last name */
 	            Quotations.currentUserLast = userLast;
+	            
+	            /* store the user's ID, since it's possible to have user's with the same first and last name */
 	            Quotations.currentUserID = userID;
+	            
+	            /* the user is now logged in, open the main menu */
 	            Quotations.openMainMenu();
+	            
+	            /* and close this window */
 	            this.dispose();
 	        }
 	    }
-	    catch(Exception e) {}
+	    /* any exceptions? we'll catch them here. */
+	    catch(Exception e) {
+	        System.err.println(e.getMessage());
+	    }
 	}//GEN-LAST:event_loginButtonActionPerformed
 
+    /**
+     * cancelButtonActionPerformed method, closes the current window, and returns to main menu
+     * @param evt   action being performed(user clicked cancel)
+     */
 	private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+	    
+	    /* open the main menu */
 	    Quotations.openMainMenu();
+
+        /* and close this one */
 	    this.dispose();
 	}//GEN-LAST:event_cancelButtonActionPerformed
 

@@ -1,6 +1,7 @@
-/*
- *	Class for MainMenu
- *The first window a user sees, contains buttons to access other parts of the program
+/**
+ * Class for MainMenu
+ * The first window a user sees, contains buttons to access other parts of the program
+ * @author Casey Harford
  */
 
 package QuotationsPackage;
@@ -118,61 +119,129 @@ public class MainMenu extends javax.swing.JFrame {
 	 * @param evt	The ActionEvent occuring (show quotes button)
 	 */
 	private void showQuotesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showQuotesButtonActionPerformed
+	
 	    /* Create and display the form */
 	    EventQueue.invokeLater(new Runnable() {
 
 	       @Override
+	       /**
+	        * run method, used start another window, off the current thread
+	        */
 	       public void run() {
+	           
+	           /* create the frame */
 	           final JFrame frame = new JFrame();
+	           
+	           /* add content, show quotes */
 	           frame.setContentPane(new ShowQuotes());
+	           
+	           /* make sure that if the user clicks the X, to not exit, just dispose */
 	           frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	           
+	           /* set the dimensions */
 	           frame.pack();
+	           
+	           /* make the frame visible */
 	           frame.setVisible(true);
+	           
+	           /* don't allow resize */
 	           frame.setResizable(false);
+	           
+	           /* since the window is being disposed, we must over ride the windowClosing method */
 	           frame.addWindowListener(new WindowAdapter() {
 	               @Override
+	               /**
+	                * windowClosing method, will dispose this window, and return user to main menu,
+	                * by opening the main menu window before disposing.
+	                * @param evt    the action occuring(closing window, user most likely pressing the X)
+	                */
 	               public void windowClosing(WindowEvent evt) {
+	                   
+	                   /* open the main menu */
 	                   Quotations.openMainMenu();
+	                   
+	                   /* and close this one */
 	                   frame.dispose();
 	               }
 	           });
 	       }
 	    });
+	    
+	    /* once show quotes has been started, close this window */
 	    this.dispose();
 	}//GEN-LAST:event_showQuotesButtonActionPerformed
 
 	/**
-	 * loginButton action, displays LoginWindow for user to login
+	 * loginButton action, displays LoginWindow for user to login if the user is not logged in,
+	 * however, the caption for the button changes to logout if the user does login, therefore 
+	 * logout is also handled in this method.
 	 * @param evt	the event occuring(login button pressed)
 	 */
 	private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-
+	
+        /* check if user is logged in, if they are we will be loggin them out */
 	    if(Quotations.logged_in) {
+	        
+	        /* set initial value to false, meaning user is not logged in */
 	        Quotations.logged_in = false;
+	        
+	        /* set initial value for currentUser, 0(unknown)*/
 	        Quotations.currentUserID = 0;
+	        
+	        /* set initial value of currentUserFirst(null)*/
 	        Quotations.currentUserFirst = null;
+
+	        /* set initial value of currentUserLast(null)*/
 	        Quotations.currentUserLast = null;
+	        
+	        /* open the main menu */
 	        Quotations.openMainMenu();
+	        
+	        /* and close this one */
 	        this.dispose();
+	        
+	        /* should not continue with code below, since the user is now logged out */
 	        return;
 	    }
+	    
 	    /* Create and display the form */
 	    java.awt.EventQueue.invokeLater(new Runnable() {
 
 	        @Override
+	        /**
+	         * run method, used here to start the login window
+	         */
 	        public void run() {
+	            
+	            /* instantiate a new login window */
 	            final LoginWindow login = new LoginWindow();
+	            
+	            /* make it visible */
 	            login.setVisible(true);
+	            
+	            /* should not be resizable */
 	            login.setResizable(false);
+	            
+	            /* defining the close operation here */
 	            login.addWindowListener(new WindowAdapter() {
 	                @Override
+	                /**
+	                 * method windowClosing, over ridden to provide more functionality.
+	                 * main menu will be opened up, then this window will be disposed of.
+	                 */
 	                public void windowClosing(WindowEvent evt) {
+	                    
+	                    /* open the main menu */
 	                    Quotations.openMainMenu();
+	                    
+	                    /* and close this one */
 	                    login.dispose();
 	                }
 	            });
 	        }
 	    });
+	    
+	    /* finished opening the login window, close this one */
 	    this.dispose();
 	}//GEN-LAST:event_loginButtonActionPerformed
 
@@ -181,23 +250,45 @@ public class MainMenu extends javax.swing.JFrame {
 	 * @param evt	the event occuring(user pressed signup)
 	 */
 	private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
+	    
 	    /* Create and display the form */
 	    java.awt.EventQueue.invokeLater(new Runnable() {
 
 	        @Override
+	        /**
+	         * run method, used to start the new user window
+	         */
 	        public void run() {
+	            
+	            /* instantiating a new window */
 	            final NewUser newUserWindow = new NewUser();
+	            
+	            /* make it visible */
 	            newUserWindow.setVisible(true);
+	            
+	            /* but not resizable */
 	            newUserWindow.setResizable(false);
+	            
+	            /* customized the close operation */
 	            newUserWindow.addWindowListener(new WindowAdapter() {
 	                @Override
+	                /**
+	                 * windowClosing method, used to open the main window, and close the new user window
+	                 * @param evt   action being performed(closing window)
+	                 */
 	                public void windowClosing(WindowEvent evt) {
+	                    
+	                    /* open the main window */
 	                    Quotations.openMainMenu();
+	                    
+	                    /* and close this one */
 	                    newUserWindow.dispose();
 	                }
 	            });
 	        }
 	    });
+	    
+	    /* finished opening new user window, close this one */
 	    this.dispose();
 	}//GEN-LAST:event_signupButtonActionPerformed
 
