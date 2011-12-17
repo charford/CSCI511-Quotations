@@ -1,5 +1,4 @@
-Quotations
-By Casey Harford
+Quotations By Casey Harford
 =================================
 
 COMPILE INSTRUCTIONS - IMPORTANT
