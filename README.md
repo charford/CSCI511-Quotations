@@ -48,6 +48,13 @@ To create a new Quote, click New. A quote will be added to the list, but it will
 not be saved, until the user presses Save. Fill in details for quote, then Save 
 it. At this point, the data base is updated.
 
+Quotes can be sorted by clicking on the header of the table column that you'd
+like to sort by. For example, to sort by popularity, click the header Likes.
+
+In order for a Quote to increase in popularity, it must be "Liked." A user can
+like a Quote by clicking the Like button. This will increment the number of
+Likes for the Quote by 1, and refresh the display in the table. 
+
 My Experiences
 =================================
 This was not my first time working with MySQL. I was however, a newbie when it 
